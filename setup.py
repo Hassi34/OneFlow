@@ -9,7 +9,7 @@ USERNAME = "Hassi34"
 
 setuptools.setup(
     name=f"{PROJECT_NAME}-{USERNAME}",
-    version="0.0.3",
+    version="0.0.4",
     author= USERNAME,
     author_email="hasnainmehmood3435@gmail.com",
     description="It's an Implementation of ANN with callbacks",

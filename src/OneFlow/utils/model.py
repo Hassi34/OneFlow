@@ -1,3 +1,8 @@
+"""
+Author : Hasnain Mehmood
+Contact : hasnainmehmood3435@gmail.com 
+"""
+
 import tensorflow as tf 
 import time
 import os
@@ -11,6 +16,9 @@ def get_unique_filename(filename):
     unique_filename  = f"{time_stamp}_{filename}"
     return unique_filename
 class StepFlow:
+    """ This class shall be used to train an end to end ANN model with callback
+        Written by : Hasnain
+    """
     def __init__(self,config, X_train, y_train, X_valid, y_valid):
         self.config = config
         self.LOSS_FUNCTION = config["params"]["loss_function"]
@@ -33,6 +41,11 @@ class StepFlow:
         self.tensorboard_root_log_dir = config["logs"]["tensorboard_root_log_dir"]
 
     def create_model(self):
+        """This method will get the variables initialized with class 
+            And will provide the model architecture for next methods
+            Written by : Hasnain
+        """
+
         LAYERS = [
             tf.keras.layers.Flatten(input_shape = [28, 28], name = "inputLayer"),
             tf.keras.layers.Dense(300, activation = "relu", name = "hiddenLayer1"),
@@ -50,6 +63,10 @@ class StepFlow:
         #<< untrained model
 
     def fit_model(self):
+        """This method will perform the operation on data and model architecture
+            and will provide the trained model with call backs
+           Written by : Hasnain
+        """
         TENSORBOARD_ROOT_LOG_DIR = os.path.join(self.logs["logs_dir"], self.tensorboard_root_log_dir)
         os.makedirs(TENSORBOARD_ROOT_LOG_DIR, exist_ok=True) 
         model_ckpt_path = os.path.join(self.artifacts_dir,self.model_dir, self.model_ckpt_dir)
@@ -58,6 +75,10 @@ class StepFlow:
         self.history = self.model.fit(self.X_train, self.y_train, epochs=self.EPOCHS, validation_data = self.VALIDATION_SET, callbacks = [tensorboard_cb , early_stopping_cb, checkpointing_cb])
 
     def save_final_model(self):
+        """This method with create the "models" directory
+            and will save trained model in that
+            Written by : Hasnain
+        """
         model_dir_path = os.path.join(self.artifacts_dir,self.model_dir, get_unique_filename("tb_logs"))
         os.makedirs(model_dir_path, exist_ok = True)
         unique_filename = get_unique_filename(self.model_name)
@@ -65,6 +86,10 @@ class StepFlow:
         self.model.save(path_to_model)
 
     def save_plot(self):
+        """This method will create the plots of defined evaluation metrics 
+           and will save the plots in "plots" directory
+            Written by : Hasnain
+        """
 
         plots_dir_path = os.path.join(self.artifacts_dir, self.plots_dir )
         os.makedirs(plots_dir_path, exist_ok=True)
