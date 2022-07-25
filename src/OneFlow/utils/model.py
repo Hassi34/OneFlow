@@ -8,7 +8,7 @@ import time
 import os
 import matplotlib.pyplot as plt
 import pandas as pd
-from src.utils.callbacks import get_callbacks
+from utils.callbacks import get_callbacks
 
 
 def get_unique_filename(filename):
